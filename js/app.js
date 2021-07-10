@@ -18,6 +18,9 @@
  * 
 */
 
+const navbar = document.querySelector('#navbar__list')
+const lists = document.querySelector('#navbar__list').children
+const sections = document.querySelectorAll('section')
 
 /**
  * End Global Variables
@@ -34,18 +37,18 @@
 */
 
 // build the nav
-const navbar = document.getElementById('navbar__list')
-const lists = document.querySelector('#navbar__list').children
-const sections = document.querySelectorAll('section')
-for(section of sections){
-    console.log(section.offsetTop);
-    
-}
+
 
 
 const element = document.createElement('li')
-for(let i=1;i<=4;i++)
-navbar.insertAdjacentHTML('beforeend',`<li><a href="#sec${i}" ${(i==1)?'class="active"':null}>section${i}</a></li>`)
+// for(let i=1;i<=4;i++)
+for(section of sections){
+    console.log(section.getAttribute('data-nav'));
+    const title = section.getAttribute('data-nav');
+    // navbar.insertAdjacentHTML('beforeend',`<li><a href="#sec${i}" ${(i==1)?'class="active"':null}>section${i}</a></li>`)
+    navbar.insertAdjacentHTML('beforeend',`<li><a >${title}</a></li>`)
+    
+}
 
 // Add class 'active' to section when near top of viewport
 
@@ -80,12 +83,21 @@ addEventListener('scroll',(x)=>{
 
 // Scroll to anchor ID using scrollTO event
 
-const navbarList = document.querySelector('#navbar__list')
-navbarList.addEventListener('click',(e)=>{
-    console.log(e.target.innerText.toLowerCase())
-    const top =document.querySelector('#'+e.target.innerText.toLowerCase()).offsetTop;
-    window.scrollTo({top,behavior: 'smooth'});
-    console.log()
+navbar.addEventListener('click',(e)=>{
+    console.log(e.target.innerText)
+    const value = e.target.innerText;
+    console.log(document.querySelector(`[data-nav="${e.target.innerText}"]`));
+
+    // const clickedEl = document.querySelector('#'+e.target.innerText.toLowerCase())
+    const clickedEl = document.querySelector(`[data-nav="${e.target.innerText}"]`)
+
+    // const top =(clickedEl!= null)? clickedEl.offsetTop:null;
+    // console.log(top)
+    if (clickedEl!=null){
+        const top =clickedEl.offsetTop;
+
+        window.scrollTo({top,behavior: 'smooth'});
+    }
 })
 // Add navbar icon for mobile screen
 const navbarIcon =
@@ -94,12 +106,12 @@ const navbarIcon =
     <span class="bar"> </span>
     <span class="bar"> </span>
 </div>`
-navbarList.insertAdjacentHTML('beforebegin',navbarIcon);
+navbar.insertAdjacentHTML('beforebegin',navbarIcon);
 
 // display and hide navbar menu on click to the icon
 const icon = document.querySelector('.icon')
 icon.addEventListener('click',function(){
-    navbarList.style.display=(navbarList.style.display == "block")?"none":"block";
+    navbar.style.display=(navbar.style.display == "block")?"none":"block";
 })
 
 
