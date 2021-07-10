@@ -38,8 +38,6 @@ const sections = document.querySelectorAll('section')
 
 // build the nav
 
-
-
 const element = document.createElement('li')
 // for(let i=1;i<=4;i++)
 for(section of sections){
@@ -78,24 +76,15 @@ addEventListener('scroll',(x)=>{
         sections[3].classList.add('active')
     }
     console.log(window.scrollY)
-
 })
 
 // Scroll to anchor ID using scrollTO event
 
 navbar.addEventListener('click',(e)=>{
-    console.log(e.target.innerText)
-    const value = e.target.innerText;
-    console.log(document.querySelector(`[data-nav="${e.target.innerText}"]`));
-
-    // const clickedEl = document.querySelector('#'+e.target.innerText.toLowerCase())
     const clickedEl = document.querySelector(`[data-nav="${e.target.innerText}"]`)
 
-    // const top =(clickedEl!= null)? clickedEl.offsetTop:null;
-    // console.log(top)
     if (clickedEl!=null){
         const top =clickedEl.offsetTop;
-
         window.scrollTo({top,behavior: 'smooth'});
     }
 })
